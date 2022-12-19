@@ -2,11 +2,11 @@
 
 @section('content')
 @if(Route::currentRouteName() == 'welcome')
-    <a href="{{route('filtered')}}">Visualizza i treni in partenza oggi</a>
+    <div class="my-link"><a href="{{route('filtered')}}">Visualizza i treni in partenza oggi</a></div>
 @else
-    <a href="{{route('welcome')}}">Visualizza tutti i treni</a>
+    <div class="my-link"><a href="{{route('welcome')}}">Visualizza tutti i treni</a></div>
 @endif
-<table class="table">
+<table class="table text-center">
     <thead class="bg-danger text-white">
     <tr>
         <th>Azienda</th>
@@ -22,24 +22,24 @@
     </tr>
 </thead>
 @foreach ($trains as $train)
-    <tr>
+    <tr >
             <td>{{$train->azienda}}</td>
             <td>{{$train->stazione_partenza}}</td>
             <td>{{$train->stazione_arrivo}}</td>
             <td>{{$train->data_partenza}}</td>
-            <td>{{$train->orario_partenza}}</td>
-            <td>{{$train->orario_arrivo}}</td>
+            <td>{{substr($train->orario_partenza,0,5)}}</td>
+            <td>{{substr($train->orario_arrivo,0,5)}}</td>
             <td>{{$train->codice_treno}}</td>
-            <td>{{$train->numero_carrozze}}</td>
+            <td>{{$train->numero_carrozza}}</td>
             @if($train->in_orario)
             <td>Il treno arriverà in orario</td>
             @else
-            <td>il treno potrebbe subire variazioni</td>
+            <td>Il treno potrebbe subire variazioni</td>
             @endif
             @if($train->cancellato)
             <td>Il treno è stato cancellato</td>
             @else
-            <td>il treno arriverà all'orario indicato</td>
+            <td>Il treno arriverà all'orario indicato</td>
             @endif
     </tr>
 @endforeach

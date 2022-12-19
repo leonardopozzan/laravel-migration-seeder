@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Train;
@@ -21,15 +21,15 @@ class TrainsTableSeeder extends Seeder
             $newTrain->azienda = $faker->company();
             $newTrain->stazione_partenza = $faker->city();
             $newTrain->stazione_arrivo = $faker->city();
-            $newTrain->orario_partenza = $faker->time();
-            $newTrain->orario_arrivo = $faker->time();
+            $newTrain->orario_partenza = $faker->time('H:i');
+            $newTrain->orario_arrivo = $faker->time('H:i');
             $newTrain->codice_treno = $faker->bothify();
-            $newTrain->numero_carrozze = $faker->randomDigit();
+            $newTrain->numero_carrozze = $faker->randomDigitNot(0);
             $newTrain->in_orario = $faker->boolean();
             if($i%2 == 0){
                 $newTrain->data_partenza = $faker->date();
             }else{
-                $newTrain->data_partenza = '2022-12-20';
+                $newTrain->data_partenza = Carbon::now()->toDateString();
             }
             if($newTrain->in_orario){
                 $newTrain->cancellato = false;

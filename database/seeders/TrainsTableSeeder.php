@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Train;
+use Faker\Generator as Faker;
 
 class TrainsTableSeeder extends Seeder
 {
@@ -13,29 +14,29 @@ class TrainsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        $newTrain = new Train();
-        $newTrain->azienda = 'Trenitalia';
-        $newTrain->stazione_partenza = 'Verona Porta Nuova';
-        $newTrain->stazione_arrivo = 'Roma Termini';
-        $newTrain->orario_partenza = '08:50';
-        $newTrain->orario_arrivo = '12:10';
-        $newTrain->codice_treno = 'FR978156';
-        $newTrain->numero_carrozze = '5';
-        $newTrain->in_orario = true;
-        $newTrain->cancellato = false;
-        $newTrain->save();
-        // $table->id();
-        // $table->timestamps();
-        // $table->string('azienda', 100);
-        // $table->string('stazione_partenza', 200);
-        // $table->string('stazione_arrivo', 200);
-        // $table->time('orario_partenza');
-        // $table->time('orario_arrivo');
-        // $table->string('codice_treno');
-        // $table->integer('numero_carrozze')->nullable();
-        // $table->boolean('in_orario')->nullable();
-        // $table->boolean('cancellato')->nullable();
+        for($i = 1; $i <= 20; $i++) {
+            $newTrain = new Train();
+            $newTrain->azienda = $faker->company();
+            $newTrain->stazione_partenza = $faker->city();
+            $newTrain->stazione_arrivo = $faker->city();
+            $newTrain->orario_partenza = $faker->time();
+            $newTrain->orario_arrivo = $faker->time();
+            $newTrain->codice_treno = $faker->bothify();
+            $newTrain->numero_carrozze = $faker->randomDigit();
+            $newTrain->in_orario = $faker->boolean();
+            if($i%2 == 0){
+                $newTrain->data_partenza = $faker->date();
+            }else{
+                $newTrain->data_partenza = '2022-12-20';
+            }
+            if($newTrain->in_orario){
+                $newTrain->cancellato = false;
+            }else{
+                $newTrain->cancellato = true;
+            }
+            $newTrain->save();
+        }
     }
 }

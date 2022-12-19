@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Train;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -17,7 +16,7 @@ class PageController extends Controller
         return view('welcome', compact('trains'));
     }
     public function filtered(){
-        $currentDate = Carbon::now()->toDateString();
+        $currentDate = today()->toDateString();
         $trains = Train::all()->where('data_partenza', $currentDate); 
         return view('welcome', compact('trains'));
     }

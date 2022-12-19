@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Guest\PageController;
+use App\Models\Train;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class, 'index'])->name('welcome');
+Route::get('/filtered', [PageController::class, 'filtered'])->name('filtered');

@@ -24,12 +24,12 @@ class TrainsTableSeeder extends Seeder
             $newTrain->orario_partenza = $faker->time('H:i');
             $newTrain->orario_arrivo = $faker->time('H:i');
             $newTrain->codice_treno = $faker->bothify();
-            $newTrain->numero_carrozze = $faker->randomDigitNot(0);
+            $newTrain->numero_carrozza = $faker->randomDigitNot(0);
             $newTrain->in_orario = $faker->boolean();
-            if($i%2 == 0){
-                $newTrain->data_partenza = $faker->date();
+            if($i <= 5){
+                $newTrain->data_partenza = today()->toDateString();
             }else{
-                $newTrain->data_partenza = Carbon::now()->toDateString();
+                $newTrain->data_partenza = $faker->dateTimeBetween('now', '+2 week');
             }
             if($newTrain->in_orario){
                 $newTrain->cancellato = false;
